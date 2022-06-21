@@ -1,0 +1,104 @@
+<html>
+	<head>
+		<title>Chatbot</title>
+		<style>
+			BODY{
+				font-family: Arial; font-size: 12px; color: dimgray;
+				}
+
+		</style>
+		<meta name="author" content="Bernardo Meyer">
+		<meta http-equiv="Content-Type" content="text/html;charset=iso-8859-1">
+		<meta name="description" content="HTML5">
+		<script src="BMyFrmwk.js"></script>
+		<script>
+			var lista = null;
+			var inp = null;
+			var arrAssunto = [];
+			arrAssunto.push("defeito");
+			arrAssunto.push("devolução do dinheiro");
+			arrAssunto.push("devolução da mercadoria");
+			arrAssunto.push("devolução do pagamento");
+			arrAssunto.push("devolvam meu dinheiro");
+			arrAssunto.push("devolver a mercadoria");
+			arrAssunto.push("devolver o pagamento");
+			arrAssunto.push("manutenção");
+			arrAssunto.push("manutenção");
+			arrAssunto.push("enviar para manutenção");
+			arrAssunto.push("pagamento");
+			arrAssunto.push("pagamento atrasado");
+			arrAssunto.push("atrasar pagamento");
+			arrAssunto.push("troca");
+			arrAssunto.push("troca de mercadoria");
+		</script>
+		<script>
+			function search(inp,ev){
+				console.log("Srch"+typeof(inp.value));
+				console.log(ev);
+				inp.setAttribute( "autocomplete", "off" );
+				if( typeof(inp) != 'undefined' ){
+					console.log("INP"+inp.value);
+					if( inp.value != "" ){
+						inp.setAttribute( "autocomplete", "on" );;
+						inp.pattern = "[\\w\\s+#]{${inp.value.length}}";
+						console.log("Srch On");
+						} else {
+						inp.setAttribute( "autocomplete", "off" );
+						console.log("Srch Off");
+						}					
+					} else {
+					console.log("INP N/A");
+					}
+				}
+			function f_entrada(inp, mouse_event){
+				inp.setAttribute( "autocomplete", "off" );
+				console.log("Ev Off");
+				if( inp.getAttribute("value") == null ){
+					inp.setAttribute( "autocomplete", "off" );
+					console.log("Ev Off");
+					} else {
+					inp.setAttribute( "autocomplete", "on" );
+					console.log("Ev On");
+					}
+				}
+			function liga(){
+				var valor = inp.value;
+				if( inp.value != "" ){
+					lista.id = "primitives";
+					inp.pattern = "[\\w\\s+#]{${inp.value.length}}";
+					console.log("Srch On");
+					} else {
+					lista.id = "";
+					console.log("Srch Off");
+					}				
+				}
+			function init(){
+				var ob = new BMy();
+				lista = ob.getById("primitives");
+				inp = ob.getById("entrada");
+				//inp.value = "";
+				entrada.addEventListener('click', mouse_event =>{
+					//f_entrada(inp, mouse_event);
+					//search(inp,mouse_event);
+					liga();
+				    });
+				var html = "";
+				for(item in arrAssunto){
+					html += "<option value=\"" + arrAssunto[item] + "\">";
+					}
+				lista.innerHTML = html;
+				inp.autocomplete = "off";
+				lista
+				}
+		</script>
+	</head>
+	<body id="corpo" onload="init();">
+		<form  autocomplete="off">
+		Assunto:<input list="primitives" autocomplete="off" placeholder="Digite o que deseja" id="entrada" type=text  oninput="liga();" pattern="" value="">
+		<!-- input list="primitives" autocomplete="off" placeholder="Digite o que deseja" id="entrada" type=text onmouseenter="search(this,event);" onmousedown="search(this,event);"  onclick="search(this,event);"  onfocus="search(this,event);" oninput="search(this,event);" value="" pattern="" -->
+		</form>
+		<datalist id="primitives" name="primitives">
+			
+		</datalist>
+	</body>
+</html>
